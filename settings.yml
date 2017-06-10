@@ -1,0 +1,7 @@
+joshua:
+  pool_size: 3
+logging:
+  filename: ./log.log
+  format: '{date} {name} {level} {message}'
+  date_format: '%y-%m-%d.%H:%M:%S'
+  level: TRACE

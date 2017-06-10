@@ -4,10 +4,9 @@ from concurrent.futures import ThreadPoolExecutor
 
 from injector import inject
 
-from exceptions import ServiceException
-from exceptions.taskexception import TaskException
-from services import LoggingService
-from services import SettingsService
+from exceptions import ServiceException, JoshuaException
+from services.loggingservice import LoggingService
+from services.settingsservice import SettingsService
 from . import Task
 
 
@@ -18,12 +17,12 @@ class TaskManager:
         self._logger = logging_service.get_logger(type(self).__name__)
 
         try:
-            self._settings = settings_service.get('taskmanager')
+            self._settings = settings_service.get('joshua')
             self._task_pool = ThreadPoolExecutor(self._settings.pool_size)
         except ServiceException as e:
-            raise TaskException('Unable to get settings', e)
+            raise JoshuaException('Unable to get settings', e)
         except ValueError as e:
-            raise TaskException('Invalid pool size', e)
+            raise JoshuaException('Invalid pool size', e)
 
     def add_task(self, task: Task):
         self._tasks.append(task)

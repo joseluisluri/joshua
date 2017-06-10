@@ -4,7 +4,7 @@ from enum import Enum
 import time
 from injector import inject, singleton
 
-from services import SettingsService
+from services.settingsservice import SettingsService
 
 
 class Level(Enum):
@@ -35,8 +35,8 @@ class Logger:
     def _log(self, level: Level, message: str):
         info = {'name': self._name, 'date': time.strftime(self._settings.date_format), 'level': level.name,
                 'message': message}
-        if level.value >= self._level.value:
-            print(self._settings.format.format(**info))
+        #if level.value >= self._level.value:
+        print(self._settings.format.format(**info))
 
 
 class LoggingService:
